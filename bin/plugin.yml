@@ -1,0 +1,16 @@
+name: TModsServerAddons_Warps
+version: 1.31
+author: Timo Hocker
+main: me.tmods.serveraddons.Warps
+depends:
+ - TModsServerUtils
+commands:
+  navigator:
+    description: all navigator commands
+    usage: /navigator [add/remove] [name] [ItemMaterial]
+  warp:
+    description: warp without your navigator
+    usage: /warp [name]
+  warplist:
+    description: get all warps
+    usage: /warplist
