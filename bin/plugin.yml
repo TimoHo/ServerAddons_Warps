@@ -1,5 +1,5 @@
 name: TModsServerAddons_Warps
-version: 1.31
+version: 1.32
 author: Timo Hocker
 main: me.tmods.serveraddons.Warps
 depends:

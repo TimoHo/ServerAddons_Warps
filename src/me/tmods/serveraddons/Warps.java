@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.tmods.api.Sound;
 import me.tmods.serverutils.Methods;
 
 public class Warps extends JavaPlugin implements Listener{
@@ -132,7 +133,7 @@ public class Warps extends JavaPlugin implements Listener{
 						tploc.setYaw((float) cfg.getDouble("Navi." + event.getClickedInventory().getItem(event.getRawSlot()).getItemMeta().getDisplayName() + ".yaw"));
 						event.getWhoClicked().closeInventory();
 						event.getWhoClicked().teleport(tploc);
-						Methods.playSound("Enderman_Teleport", event.getWhoClicked().getLocation(), (Player) event.getWhoClicked());
+						Methods.playSound(Sound.ENDERMAN_TELEPORT, event.getWhoClicked().getLocation(), (Player) event.getWhoClicked());
 					}
 				}
 			}
@@ -162,7 +163,7 @@ public class Warps extends JavaPlugin implements Listener{
 				tploc.setYaw((float) cfg.getDouble("Navi." + args[0] + ".yaw"));
 				((Player)sender).closeInventory();
 				((Player)sender).teleport(tploc);
-				Methods.playSound("Enderman_Teleport", ((Player) sender).getLocation(), (Player) sender);
+				Methods.playSound(Sound.ENDERMAN_TELEPORT, ((Player) sender).getLocation(), (Player) sender);
 			}	
 			return true;
 		}
