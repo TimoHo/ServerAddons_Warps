@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,13 +22,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.tmods.api.Sound;
 import me.tmods.serverutils.Methods;
 
 public class Warps extends JavaPlugin implements Listener{
 	public File file = new File("plugins/TModsServerUtils/data.yml");
 	public FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-	public FileConfiguration lang = YamlConfiguration.loadConfiguration(new File("plugins/TModsServerUtils","lang.yml"));
 	public FileConfiguration maincfg = YamlConfiguration.loadConfiguration(new File("plugins/TModsServerUtils","config.yml"));
 	@Override
 	public void onEnable() {
@@ -85,7 +84,7 @@ public class Warps extends JavaPlugin implements Listener{
 				if (Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName() != null) {
 					if (Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName().equalsIgnoreCase("navi")) {
 						if (!event.getPlayer().hasPermission("ServerAddons.warp")) {
-							event.getPlayer().sendMessage(lang.getString(maincfg.getString("language") + ".permdeny"));
+							event.getPlayer().sendMessage("You don't have access to that command!");
 						} else {
 							if (cfg.getConfigurationSection("Navi").getKeys(false).size() > 0) {
 								int warps = cfg.getConfigurationSection("Navi").getKeys(false).size();
@@ -133,7 +132,7 @@ public class Warps extends JavaPlugin implements Listener{
 						tploc.setYaw((float) cfg.getDouble("Navi." + event.getClickedInventory().getItem(event.getRawSlot()).getItemMeta().getDisplayName() + ".yaw"));
 						event.getWhoClicked().closeInventory();
 						event.getWhoClicked().teleport(tploc);
-						Methods.playSound(Sound.ENDERMAN_TELEPORT, event.getWhoClicked().getLocation(), (Player) event.getWhoClicked());
+						((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(),Sound.ENTITY_ENDERMEN_TELEPORT,1,1);
 					}
 				}
 			}
@@ -148,7 +147,7 @@ public class Warps extends JavaPlugin implements Listener{
 		try {
 		if (cmd.getName().equalsIgnoreCase("warp")) {
 			if (!sender.hasPermission("ServerAddons.warp")) {
-				sender.sendMessage(lang.getString(maincfg.getString("language") + ".permdeny"));
+				sender.sendMessage("You don't have access to that command!");
 				return true;
 			}
 			if (args.length != 1) {
@@ -163,7 +162,7 @@ public class Warps extends JavaPlugin implements Listener{
 				tploc.setYaw((float) cfg.getDouble("Navi." + args[0] + ".yaw"));
 				((Player)sender).closeInventory();
 				((Player)sender).teleport(tploc);
-				Methods.playSound(Sound.ENDERMAN_TELEPORT, ((Player) sender).getLocation(), (Player) sender);
+				((Player) sender).playSound(((Player) sender).getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1, 1);
 			}	
 			return true;
 		}
@@ -179,7 +178,7 @@ public class Warps extends JavaPlugin implements Listener{
 		}
 		if (cmd.getName().equalsIgnoreCase("navigator")) {
 			if (!sender.hasPermission("ServerAddons.navigator")) {
-				sender.sendMessage(lang.getString(maincfg.getString("language") + ".permdeny"));
+				sender.sendMessage("You don't hava access to that command!");
 				return true;
 			}
 			if (args.length != 3 && !(args.length == 2 && args[0].equalsIgnoreCase("remove"))) {
